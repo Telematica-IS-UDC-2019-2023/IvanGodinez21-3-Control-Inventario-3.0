@@ -1,6 +1,6 @@
 export default class Interfaz {
     mostrarAlerta(tipo, mensaje) {
-        alert(`${tipo}\n\n${mensaje}`)
+        alert(`${tipo}\n\n${mensaje}`);
     }
     mostrarArticulo(producto) {
         let tablecodigo = document.getElementById('tablecodigo');

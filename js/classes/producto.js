@@ -7,6 +7,7 @@ export default class Producto {
      * @param {number} costo
      * @param {number} total
      * @param {object} siguiente
+     * @param {object} anterior
      */
     constructor(codigo, nombre, descripcion, cantidad, costo) {
         this.codigo = codigo;
@@ -16,5 +17,6 @@ export default class Producto {
         this.costo = costo;
         this.total = costo * cantidad;
         this.siguiente = null;
+        this.anterior = null;
     }
 }

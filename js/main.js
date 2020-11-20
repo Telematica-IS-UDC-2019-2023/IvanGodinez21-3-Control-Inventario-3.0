@@ -117,13 +117,14 @@ btnEliminar.addEventListener('click', () => {
     if (codigo != '') {
         if (inventario.inicio != null) {
             console.clear();
-            var aux = new Producto(codigo, '', '', '', '');
-            aux = inventario.eliminarProducto(aux);
+            var aux = new Producto(codigo, '', '', '', '', '');
+            var found = inventario.eliminarProducto(aux);
             inventario.listarProductos(interfaz);
             inventario.listarProductosInverso(interfaz);
             console.log(inventario);
-            if (aux != null) {
-                interfaz.mostrarRegistro('Eliminar', aux);
+            console.log(found);
+            if (found != null) {
+                interfaz.mostrarRegistro('Eliminar', found);
             } else {
                 interfaz.mostrarAlerta('🚫 Error 🚫', 'Producto no encontrado');
             }
@@ -140,6 +141,7 @@ btnEliminar1.addEventListener('click', () => {
     inventario.listarProductos(interfaz);
     inventario.listarProductosInverso(interfaz);
     console.log(inventario);
+    console.log(producto);
     if (producto != null) {
         interfaz.mostrarRegistro('Eliminar 1°', producto);
     } else {
@@ -150,17 +152,17 @@ btnBuscar.addEventListener('click', () => {
     let codigo = document.getElementById('codigo').value;
     if (codigo != '') {
         console.clear();
-        var producto = new Producto(codigo, '', '', '', '');
-        producto = inventario.buscarProducto(producto);
+        var producto = new Producto(codigo, '', '', '', '', '');
+        var found = inventario.buscarProducto(producto);
         console.log(inventario);
-        if (producto == undefined) {
+        if (found == undefined) {
             interfaz.ocultarArticulo();
             interfaz.mostrarAlerta('🚫 Error 🚫', 'Producto no encontrado');
             console.log(`Producto no encontrado`);
         } else {
-            interfaz.mostrarArticulo(producto);
-            interfaz.mostrarRegistro('Buscar', producto);
-            console.log(producto);
+            interfaz.mostrarArticulo(found);
+            interfaz.mostrarRegistro('Buscar', found);
+            console.log(found);
         }
     } else {
         interfaz.mostrarAlerta('🚫 Error 🚫', 'Por favor indica el código del producto a buscar');

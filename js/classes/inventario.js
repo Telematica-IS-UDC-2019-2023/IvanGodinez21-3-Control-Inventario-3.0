@@ -10,11 +10,12 @@ export default class Inventario {
         if (this.inicio == null) {
             this.inicio = producto;
         } else {
-            let aux = this.inicio
+            let aux = this.inicio;
             while (aux.siguiente != null) {
-            aux = aux.siguiente
+                aux = aux.siguiente;
             }
-            aux.siguiente = productoNuevo
+            aux.siguiente = productoNuevo;
+            aux.siguiente.anterior = aux;
         }
     }
     eliminarProducto(producto) {
@@ -22,16 +23,24 @@ export default class Inventario {
         if (this.inicio != null) {
             if (this.inicio.codigo == producto.codigo) {
                 this.inicio = this.inicio.siguiente;
-                return new Producto(aux.codigo, aux.nombre, aux.descripcion, aux.costo)
+                if (this.inicio != null) {
+                    this.inicio.anterior = null;
+                }
+                return new Producto(aux.codigo, aux.nombre, aux.descripcion, aux.costo, aux.total, aux.siguiente, aux.anterior);
             } else {
                 try {
                     while (aux.siguiente.codigo != producto.codigo) {
                         aux = aux.siguiente;
                     }
                     if (aux.siguiente.codigo == producto.codigo) {
-                        let producto = new Producto(aux.siguiente.codigo, aux.siguiente.nombre, aux.siguiente.descripcion, aux.siguiente.costo)
-                        aux.siguiente = aux.siguiente.siguiente
-                        return producto
+                        var found = new Producto(aux.siguiente.codigo, aux.siguiente.nombre, aux.siguiente.descripcion, aux.siguiente.cantidad, aux.siguiente.costo, aux.siguiente.total, aux.siguiente.siguiente, aux.siguiente.anterior);
+                        try {
+                            aux.siguiente = aux.siguiente.siguiente;
+                            aux.siguiente.anterior = aux;
+                        } catch (error) {
+                            return found;
+                        }
+                        return found;
                     }
                 } catch (error) {}
             }
@@ -67,7 +76,7 @@ export default class Inventario {
             let i = 2;
             while (i != casilla) {
                 if (aux.siguiente != null) {
-                    aux = aux.siguiente
+                    aux = aux.siguiente;
                     i++;
                 } else {
                     break;
@@ -85,13 +94,16 @@ export default class Inventario {
         } else {
             let aux = this.inicio;
             this.inicio = producto;
-            producto.siguiente = aux;
+            this.inicio.siguiente = aux;
         }
     }
     eliminarProductoInicio() {
         if (this.inicio != null) {
             let producto = new Producto(this.inicio.codigo, this.inicio.nombre, this.inicio.descripcion, this.inicio.cantidad, this.inicio.costo);
             this.inicio = this.inicio.siguiente;
+            try {
+                this.inicio.anterior = null;
+            } catch (error) {}
             return producto;
         }
     }
