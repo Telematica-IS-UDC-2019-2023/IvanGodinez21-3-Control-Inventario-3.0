@@ -71,7 +71,8 @@ export default class Inventario {
         let aux = this.inicio;
         if (casilla == 1) {
             this.inicio = producto;
-            producto.siguiente = aux;
+            this.inicio.siguiente = aux;
+            this.inicio.siguiente.anterior = this.inicio;
         } else {
             let i = 2;
             while (i != casilla) {
@@ -84,17 +85,20 @@ export default class Inventario {
             }
             if (i == casilla) {
                 producto.siguiente = aux.siguiente;
+                producto.anterior = aux;
+                producto.siguiente.anterior = producto;
                 aux.siguiente = producto;
             }
         }
     }
     agregarProductoInicio(producto) {
-        if (this.inicio === null) {
+        if (this.inicio == null) {
             this.inicio = producto;
         } else {
             let aux = this.inicio;
             this.inicio = producto;
             this.inicio.siguiente = aux;
+            this.inicio.siguiente.anterior = this.inicio;
         }
     }
     eliminarProductoInicio() {

@@ -122,11 +122,12 @@ btnEliminar.addEventListener('click', () => {
             inventario.listarProductos(interfaz);
             inventario.listarProductosInverso(interfaz);
             console.log(inventario);
-            console.log(found);
             if (found != null) {
                 interfaz.mostrarRegistro('Eliminar', found);
+                console.log(found);
             } else {
                 interfaz.mostrarAlerta('🚫 Error 🚫', 'Producto no encontrado');
+                console.log(`Producto no encontrado`);
             }
         } else {
             interfaz.mostrarAlerta('🚫 Error 🚫', 'No quedan productos en el inventario');
