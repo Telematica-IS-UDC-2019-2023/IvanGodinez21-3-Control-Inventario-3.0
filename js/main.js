@@ -47,9 +47,13 @@ btnAgregar.addEventListener('click', () => {
                             interfaz.mostrarAlerta('🚫 Error 🚫', 'No puedes insertar productos con el mismo código');
                         }
                     } else {
-                        inventario.insertarProducto(aux, casilla.value);
+                        let found = inventario.insertarProducto(aux, casilla.value);
                         producto = aux;
-                        interfaz.mostrarRegistro('Insertar', producto);
+                        if (found != false) {
+                            interfaz.mostrarRegistro('Insertar', producto);
+                        } else {
+                            interfaz.mostrarAlerta('🚫 Error 🚫', 'No puedes insertar productos al final de la lista');
+                        }
                     }
                 } else {
                     interfaz.mostrarAlerta('🚫 Error 🚫', 'Por favor ingresa la casilla en la que se insertará el producto');

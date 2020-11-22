@@ -84,10 +84,17 @@ export default class Inventario {
                 }
             }
             if (i == casilla) {
-                producto.siguiente = aux.siguiente;
-                producto.anterior = aux;
-                producto.siguiente.anterior = producto;
-                aux.siguiente = producto;
+                try {
+                    producto.siguiente = aux.siguiente;
+                    producto.anterior = aux;
+                    producto.siguiente.anterior = producto;
+                    aux.siguiente = producto;
+                    return true;
+                } catch (error) {
+                    return false;
+                }
+            } else {
+                return false;
             }
         }
     }
